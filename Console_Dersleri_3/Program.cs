@@ -1,7 +1,9 @@
 ﻿using BusinessLayer.Concrete;
+using BusinessLayer.FluentValidation;
 using DataAccessLayer.Concrete;
 using DataAccessLayer.EntityFramework;
 using EntityLayer.Concrete;
+using FluentValidation.Results;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,7 +47,7 @@ namespace Console_Dersleri_3
 
             //MEMBER İÇİN İŞLEMLER
 
-            MemberManager memberManager = new MemberManager(new EfMemberDal());
+            //MemberManager memberManager = new MemberManager(new EfMemberDal());
 
             //Member verilerini listeleme
 
@@ -71,6 +73,58 @@ namespace Console_Dersleri_3
             //memberManager.TDelete(valueMember);
             //Console.WriteLine("Silme işlemi yapıldı");
 
+            //Id ye göre veri güncelleme
+            //var valueMember2 = memberManager.TGetById(9);
+            //valueMember2.MemberName = "Aslı";
+            //valueMember2.MemberSurname = "Meşe";
+            //memberManager.TUpdate(valueMember2);
+            //Console.WriteLine("Güncelleme yapıldı");
+
+            //COMMENT İLE İLGİLİ KOMUTLAR
+
+            //CommentManager commentManager = new CommentManager(new EfCommentDal());
+
+            //var values = commentManager.TGetList();
+            //foreach (var value in values)
+            //{
+            //    Console.WriteLine(value.CommentID + "-" + value.LocationID);
+            //    Console.WriteLine("--------------------");
+            //}
+
+            //Entity Framework şeklinde join olarak yazdığımız metodu çağırdık.
+
+            //CommentManager commentManager = new CommentManager(new EfCommentDal());
+            //commentManager.TCommentListWithLocationAndMember();
+
+
+            //FLUENT VALIDATION A UYGUN OLARAK ÜYE INSERT ETME
+            MemberManager memberManager = new MemberManager(new EfMemberDal());
+
+            Member member = new Member();
+            member.MemberName = "a";  //1. örnek "Cemil"
+            member.MemberSurname = "b";  //1.örnek "Kaya"
+            MemberValidator validationRules = new MemberValidator();
+            ValidationResult results = validationRules.Validate(member);
+
+            if (results.IsValid)
+            {
+                memberManager.TInsert(member);
+                Console.WriteLine(member.MemberName + " " + member.MemberSurname + " " + "başarılı bir şekilde eklendi ");
+            }
+            else
+            {
+                foreach (var item in results.Errors)
+                {
+                    Console.WriteLine(item.ErrorMessage);
+                }
+            }
+
+
+
+
+
+                            
+                            
 
 
 

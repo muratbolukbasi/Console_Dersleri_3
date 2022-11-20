@@ -18,6 +18,11 @@ namespace BusinessLayer.Concrete
             _CommentDal = commentDal;
         }
 
+        public void TCommentListWithLocationAndMember()
+        {
+            _CommentDal.CommentListWithLocationAndMember();
+        }
+
         public void TDelete(Comment t)
         {
             _CommentDal.Delete(t);            
