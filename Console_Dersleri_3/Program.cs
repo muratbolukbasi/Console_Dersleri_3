@@ -118,19 +118,9 @@ namespace Console_Dersleri_3
                     Console.WriteLine(item.ErrorMessage);
                 }
             }
-
-
-
-
-
-                            
-                            
-
-
-
+         
             Console.ReadLine();
             
         }
     }
-
 }
